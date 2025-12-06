@@ -1,0 +1,114 @@
+# Archivos del sistema operativo
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# IDEs y editores
+.idea/
+.vscode/
+.fleet/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# ============================================
+# Backend - Laravel (Sol_agendamiento_cita/)
+# ============================================
+
+# Dependencias
+Sol_agendamiento_cita/vendor/
+Sol_agendamiento_cita/node_modules/
+
+# Archivos de entorno
+Sol_agendamiento_cita/.env
+Sol_agendamiento_cita/.env.backup
+Sol_agendamiento_cita/.env.production
+
+# Storage y cache
+Sol_agendamiento_cita/storage/*.key
+Sol_agendamiento_cita/public/storage
+Sol_agendamiento_cita/public/hot
+Sol_agendamiento_cita/storage/logs/*.log
+Sol_agendamiento_cita/storage/framework/cache/*
+Sol_agendamiento_cita/storage/framework/sessions/*
+Sol_agendamiento_cita/storage/framework/views/*
+!Sol_agendamiento_cita/storage/framework/cache/.gitkeep
+!Sol_agendamiento_cita/storage/framework/sessions/.gitkeep
+!Sol_agendamiento_cita/storage/framework/views/.gitkeep
+
+# Bootstrap cache
+Sol_agendamiento_cita/bootstrap/cache/*.php
+!Sol_agendamiento_cita/bootstrap/cache/.gitkeep
+
+# Testing
+Sol_agendamiento_cita/.phpunit.result.cache
+Sol_agendamiento_cita/phpunit.xml.bak
+
+# Homestead
+Sol_agendamiento_cita/Homestead.json
+Sol_agendamiento_cita/Homestead.yaml
+Sol_agendamiento_cita/auth.json
+
+# ============================================
+# Frontend - React (portal_agendamiento_cita/)
+# ============================================
+
+# Dependencias
+portal_agendamiento_cita/node_modules/
+portal_agendamiento_cita/.pnp
+portal_agendamiento_cita/.pnp.js
+
+# Testing
+portal_agendamiento_cita/coverage/
+
+# Producción
+portal_agendamiento_cita/build/
+portal_agendamiento_cita/dist/
+
+# Archivos de entorno
+portal_agendamiento_cita/.env.local
+portal_agendamiento_cita/.env.development.local
+portal_agendamiento_cita/.env.test.local
+portal_agendamiento_cita/.env.production.local
+
+# ============================================
+# Archivos temporales y otros
+# ============================================
+
+# Archivos de entorno de Docker Compose (raíz)
+.env
+.env.local
+
+# Archivos de backup
+*.bak
+*.backup
+*.tmp
+
+# Archivos de base de datos locales
+*.sqlite
+*.sqlite3
+*.db
+
+# Archivos comprimidos (excepto los necesarios)
+*.zip
+*.tar.gz
+*.rar
+
+# Archivos de assets temporales
+Sol_agendamiento_cita/assets/c__Users_*
+

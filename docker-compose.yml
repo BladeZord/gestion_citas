@@ -1,0 +1,87 @@
+services:
+  # Base de datos MySQL
+  mysql:
+    image: mysql:8.0
+    container_name: gestion_citas_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-agendamiento_citas}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-root}
+      # No usar MYSQL_USER si es "root", MySQL no lo permite
+      # Si necesitas un usuario personalizado, cambia DB_USERNAME en .env
+    ports:
+      - "${DB_PORT:-3307}:3307"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./Sol_agendamiento_cita/db_dump.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - gestion_citas_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_PASSWORD:-root}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  # Backend Laravel API
+  backend:
+    build:
+      context: ./Sol_agendamiento_cita
+      dockerfile: Dockerfile
+    container_name: gestion_citas_backend
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - ./Sol_agendamiento_cita:/var/www/html
+      - ./Sol_agendamiento_cita/docker/php.ini:/usr/local/etc/php/conf.d/custom.ini
+    ports:
+      - "${BACKEND_PORT:-8000}:80"
+    environment:
+      - APP_ENV=${APP_ENV:-local}
+      - APP_DEBUG=${APP_DEBUG:-true}
+      - APP_KEY=${APP_KEY:-}
+      - DB_CONNECTION=mysql
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=${DB_DATABASE:-agendamiento_citas}
+      - DB_USERNAME=${DB_USERNAME:-root}
+      - DB_PASSWORD=${DB_PASSWORD:-root}
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - gestion_citas_network
+    healthcheck:
+      test: ["CMD-SHELL", "php artisan --version || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Frontend React
+  frontend:
+    build:
+      context: ./portal_agendamiento_cita
+      dockerfile: Dockerfile
+      args:
+        # Si REACT_APP_API_URL está vacío, usa rutas relativas (proxy nginx)
+        # Si tiene valor, usa esa URL (para producción externa)
+        REACT_APP_API_URL: ${REACT_APP_API_URL:-}
+    container_name: gestion_citas_frontend
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT:-3000}:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - gestion_citas_network
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  gestion_citas_network:
+    driver: bridge
+
