@@ -29,7 +29,8 @@ class CitaService {
         try {
             const params = new URLSearchParams();
             
-            if (filtros?.fecha_cita) params.append('fecha_cita', filtros.fecha_cita);
+            if (filtros?.fecha_inicio) params.append('fecha_inicio', filtros.fecha_inicio);
+            if (filtros?.fecha_fin) params.append('fecha_fin', filtros.fecha_fin);
             if (filtros?.user_id) params.append('user_id', filtros.user_id.toString());
             if (filtros?.tipo_cita_id) params.append('tipo_cita_id', filtros.tipo_cita_id.toString());
             if (filtros?.estado) params.append('estado', filtros.estado);

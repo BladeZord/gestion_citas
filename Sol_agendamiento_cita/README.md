@@ -108,7 +108,8 @@ Authorization: Bearer {token}
 ### Citas
 
 - **GET** `/api/citas` - Listar citas (con paginación y filtros)
-  - Filtros: `fecha_cita`, `user_id`, `tipo_cita_id`, `estado`
+  - Filtros: `fecha_inicio`, `fecha_fin`, `user_id`, `tipo_cita_id`, `estado`
+  - Nota: `fecha_inicio` y `fecha_fin` permiten filtrar por rango de fechas. Si solo se proporciona `fecha_inicio`, se buscan citas desde esa fecha en adelante. Si solo se proporciona `fecha_fin`, se buscan citas hasta esa fecha.
 - **POST** `/api/citas` - Crear cita
 - **GET** `/api/citas/{id}` - Obtener detalle de cita
 - **PUT** `/api/citas/{id}` - Actualizar cita

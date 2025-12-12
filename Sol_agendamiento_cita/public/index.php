@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 
+// Suprimir advertencias de deprecación para evitar que aparezcan en la respuesta JSON
+// Nota: E_STRICT fue removido en PHP 8.4, así que solo usamos E_DEPRECATED
+error_reporting(E_ALL & ~E_DEPRECATED);
+
 define('LARAVEL_START', microtime(true));
 
 /*

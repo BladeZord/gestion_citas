@@ -36,7 +36,8 @@ export interface CitaEstadoRequest {
 }
 
 export interface CitasFiltros {
-    fecha_cita?: string;
+    fecha_inicio?: string;
+    fecha_fin?: string;
     user_id?: number;
     tipo_cita_id?: number;
     estado?: 'pendiente' | 'confirmada' | 'cancelada';

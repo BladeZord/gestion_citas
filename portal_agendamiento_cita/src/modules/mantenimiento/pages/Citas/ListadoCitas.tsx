@@ -249,9 +249,17 @@ export default function ListadoCitas(): React.ReactElement {
             <div style={{ marginBottom: '16px', padding: '16px', background: '#f5f5f5', borderRadius: '4px' }}>
                 <Space wrap>
                     <Input
-                        placeholder="Fecha (YYYY-MM-DD)"
-                        value={filtrosLocales.fecha_cita || ''}
-                        onChange={(e) => setFiltrosLocales({ ...filtrosLocales, fecha_cita: e.target.value || undefined })}
+                        type="date"
+                        placeholder="Fecha Inicio"
+                        value={filtrosLocales.fecha_inicio || ''}
+                        onChange={(e) => setFiltrosLocales({ ...filtrosLocales, fecha_inicio: e.target.value || undefined })}
+                        style={{ width: 150 }}
+                    />
+                    <Input
+                        type="date"
+                        placeholder="Fecha Fin"
+                        value={filtrosLocales.fecha_fin || ''}
+                        onChange={(e) => setFiltrosLocales({ ...filtrosLocales, fecha_fin: e.target.value || undefined })}
                         style={{ width: 150 }}
                     />
                     {/* Solo mostrar filtro de usuario si es admin */}

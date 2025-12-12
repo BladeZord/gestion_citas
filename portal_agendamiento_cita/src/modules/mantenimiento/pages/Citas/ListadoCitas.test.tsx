@@ -290,11 +290,13 @@ describe('ListadoCitas', () => {
             jest.clearAllMocks();
 
             // Llenar filtros
-            const fechaInput = screen.getByPlaceholderText('Fecha (YYYY-MM-DD)');
+            const fechaInicioInput = screen.getByPlaceholderText('Fecha Inicio');
+            const fechaFinInput = screen.getByPlaceholderText('Fecha Fin');
             const tipoCitaInput = screen.getByPlaceholderText('ID Tipo Cita');
             const estadoSelect = screen.getByPlaceholderText('Estado');
 
-            fireEvent.change(fechaInput, { target: { value: '2024-12-01' } });
+            fireEvent.change(fechaInicioInput, { target: { value: '2024-12-01' } });
+            fireEvent.change(fechaFinInput, { target: { value: '2024-12-31' } });
             fireEvent.change(tipoCitaInput, { target: { value: '5' } });
             fireEvent.change(estadoSelect, { target: { value: 'pendiente' } });
 
@@ -305,7 +307,8 @@ describe('ListadoCitas', () => {
             await waitFor(() => {
                 expect(mockCitaService.listar).toHaveBeenCalledWith(
                     expect.objectContaining({
-                        fecha_cita: '2024-12-01',
+                        fecha_inicio: '2024-12-01',
+                        fecha_fin: '2024-12-31',
                         tipo_cita_id: 5,
                         estado: 'pendiente',
                     })

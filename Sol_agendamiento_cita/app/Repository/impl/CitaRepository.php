@@ -15,6 +15,20 @@ class CitaRepository implements CitaRepositoryInterface
         
         $query = Cita::with(['usuario', 'tipoCita']);
 
+        // Filtro por rango de fechas (fecha_inicio y fecha_fin)
+        if (isset($filters['fecha_inicio']) && isset($filters['fecha_fin'])) {
+            // Usar whereDate para incluir todo el día en ambas fechas
+            $query->whereDate('fecha_cita', '>=', $filters['fecha_inicio'])
+                  ->whereDate('fecha_cita', '<=', $filters['fecha_fin']);
+        } elseif (isset($filters['fecha_inicio'])) {
+            // Si solo hay fecha_inicio, buscar desde esa fecha en adelante (incluyendo ese día)
+            $query->whereDate('fecha_cita', '>=', $filters['fecha_inicio']);
+        } elseif (isset($filters['fecha_fin'])) {
+            // Si solo hay fecha_fin, buscar hasta esa fecha (incluyendo ese día)
+            $query->whereDate('fecha_cita', '<=', $filters['fecha_fin']);
+        }
+
+        // Mantener compatibilidad con fecha_cita (deprecated)
         if (isset($filters['fecha_cita'])) {
             $query->where('fecha_cita', $filters['fecha_cita']);
         }

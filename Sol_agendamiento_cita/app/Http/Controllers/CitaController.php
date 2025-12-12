@@ -54,11 +54,11 @@ class CitaController extends Controller
     public function index(Request $request)
     {
         Log::info('Controller: Listado de citas solicitado', [
-            'filtros' => $request->only(['fecha_cita', 'user_id', 'tipo_cita_id', 'estado'])
+            'filtros' => $request->only(['fecha_inicio', 'fecha_fin', 'user_id', 'tipo_cita_id', 'estado'])
         ]);
 
         try {
-            $filtros = $request->only(['fecha_cita', 'user_id', 'tipo_cita_id', 'estado']);
+            $filtros = $request->only(['fecha_inicio', 'fecha_fin', 'user_id', 'tipo_cita_id', 'estado']);
             $citas = $this->citaService->listarCitas($filtros);
 
             Log::info('Controller: Citas obtenidas exitosamente', ['total' => $citas->total()]);
