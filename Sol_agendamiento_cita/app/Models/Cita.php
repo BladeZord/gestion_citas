@@ -2,42 +2,39 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Cita extends Model
 {
-    use HasFactory;
-
     protected $table = 'citas';
 
     protected $fillable = [
-        'user_id',
-        'tipo_cita_id',
-        'fecha_cita',
-        'hora_cita',
+        'cliente_id',
+        'usuario_id',
+        'fecha',
+        'hora',
+        'motivo',
+        'estado_cita_id',
         'estado',
     ];
 
-    protected $casts = [
-        'fecha_cita' => 'date',
-        'hora_cita' => 'datetime:H:i:s',
-    ];
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class, 'cliente_id');
+    }
 
-    /**
-     * Relación con usuario
-     */
     public function usuario()
     {
-        return $this->belongsTo(Usuario::class, 'user_id');
+        return $this->belongsTo(Usuario::class, 'usuario_id');
     }
 
-    /**
-     * Relación con tipo de cita
-     */
-    public function tipoCita()
+    public function estado()
     {
-        return $this->belongsTo(TipoCita::class, 'tipo_cita_id');
+        return $this->belongsTo(EstadoCita::class, 'estado_cita_id');
+    }
+
+    public function historial()
+    {
+        return $this->hasMany(HistorialCita::class, 'cita_id');
     }
 }
-

@@ -6,24 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('tipos_cita', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
+            $table->string('codigo', 20)->unique();
+            $table->string('nombre', 100);
+            $table->string('descripcion', 500)->nullable();
+            $table->boolean('estado')->default(true);
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('tipos_cita');
+        Schema::dropIfExists('roles');
     }
 };
-
