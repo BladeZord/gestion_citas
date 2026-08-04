@@ -33,16 +33,11 @@ lerna-debug.log*
 # Dependencias
 Sol_agendamiento_cita/vendor/
 Sol_agendamiento_cita/node_modules/
-fase_*/**/vendor/
-fase_*/**/node_modules/
 
 # Archivos de entorno
 Sol_agendamiento_cita/.env
 Sol_agendamiento_cita/.env.backup
 Sol_agendamiento_cita/.env.production
-fase_*/**/.env
-fase_*/**/.env.backup
-fase_*/**/.env.production
 
 # Storage y cache
 Sol_agendamiento_cita/storage/*.key
@@ -80,13 +75,10 @@ portal_agendamiento_cita/.pnp.js
 
 # Testing
 portal_agendamiento_cita/coverage/
-fase_*/**/coverage/
 
 # Producción
 portal_agendamiento_cita/build/
 portal_agendamiento_cita/dist/
-fase_*/**/build/
-fase_*/**/dist/
 
 # Archivos de entorno
 portal_agendamiento_cita/.env.local
