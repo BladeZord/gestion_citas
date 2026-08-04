@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Model\Constants\EstadosAuditoria;
+use App\Models\Constants\EstadosAuditoria;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -88,6 +88,22 @@ class User extends Authenticatable
     {
         return $this->hasMany(
             HistorialContrasenia::class,
+            'usuario_id'
+        );
+    }
+
+    public function sesiones(): HasMany
+    {
+        return $this->hasMany(
+            Sesion::class,
+            'user_id'
+        );
+    }
+
+    public function reservas(): HasMany
+    {
+        return $this->hasMany(
+            Reserva::class,
             'usuario_id'
         );
     }

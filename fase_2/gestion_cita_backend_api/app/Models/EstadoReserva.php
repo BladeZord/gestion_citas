@@ -4,26 +4,24 @@ namespace App\Models;
 
 use App\Models\Constants\EstadosAuditoria;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[Fillable([
-    'usuario_id',
-    'contrasenia',
+    'codigo',
+    'nombre',
+    'descripcion',
     'estado',
     'usuario_creacion',
     'usuario_actualizacion',
 ])]
-#[Hidden([
-    'contrasenia',
-])]
-class HistorialContrasenia extends Model
+class EstadoReserva extends Model
 {
     use HasFactory;
 
-    protected $table = 'historial_contrasenias';
+    protected $table = 'estados_reserva';
 
     protected $primaryKey = 'id';
 
@@ -31,28 +29,19 @@ class HistorialContrasenia extends Model
 
     public const UPDATED_AT = 'fecha_actualizacion';
 
-    public function usuario(): BelongsTo
+    public function reservas(): HasMany
     {
-        return $this->belongsTo(
-            User::class,
-            'usuario_id'
-        );
+        return $this->hasMany(Reserva::class, 'estado_reserva_id');
     }
 
     public function usuarioCreador(): BelongsTo
     {
-        return $this->belongsTo(
-            User::class,
-            'usuario_creacion'
-        );
+        return $this->belongsTo(User::class, 'usuario_creacion');
     }
 
     public function usuarioActualizador(): BelongsTo
     {
-        return $this->belongsTo(
-            User::class,
-            'usuario_actualizacion'
-        );
+        return $this->belongsTo(User::class, 'usuario_actualizacion');
     }
 
     public function estaActivo(): bool
@@ -73,10 +62,6 @@ class HistorialContrasenia extends Model
     protected function casts(): array
     {
         return [
-            /*
-             * No se coloca el cast "hashed" aquí porque el historial
-             * normalmente recibe un hash ya generado desde el usuario.
-             */
             'fecha_creacion' => 'datetime',
             'fecha_actualizacion' => 'datetime',
         ];

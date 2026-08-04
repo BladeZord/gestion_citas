@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Model\Constants\EstadosAuditoria;
+use App\Models\Constants\EstadosAuditoria;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
