@@ -22,7 +22,7 @@ return new class extends Migration
 
             $table->string('codigo', 50)->unique();
             $table->string('nombre', 200);
-
+            $table->string('padre_id', 50);
             $table->char('estado', 1)->default('A');
 
             $table->timestampTz('fecha_creacion')->useCurrent();
